@@ -1,0 +1,63 @@
+[
+    {
+        "question": "Quel est votre age?",
+        "rep1":"Moins de 20 ans",
+        "rep2":"Entre 20 et 30 ans",
+        "rep2":"Superieur a 30 ans"
+    },
+    {
+        "question": "Depuis quand etes vous dans votre entreprise?",
+        "rep1":"Inferieur à 1 ans",
+        "rep2":"Entre 1 et 3 ans",
+        "rep2":"Superieur à 3 ans"
+    },
+    {
+        "question": "Avez vous un casier judiciaire?",
+        "rep1":"Oui",
+        "rep2":"Non"
+    },
+    {
+        "question": "Etes vous un terroriste?",
+        "rep1":"Oui",
+        "rep2":"Non"
+    },
+    {
+        "question": "Mangez vous des pizzas à l'ananas?",
+        "rep1":"Oui",
+        "rep2":"Oui mais je l'assume pas donc non",
+        "rep2":"T'es fou c'est degueulasse"
+    },
+    {
+        "question": "Quel est le nom de notre entreprise?",
+        "rep1":"EEV",
+        "rep2":"RFD",
+        "rep2":"PQC"
+    },
+    {
+        "question": "Pourquoi voulez vous acceder a notre site?",
+        "rep1":"Pour travailler avec vous",
+        "rep2":"Sans raison particulière",
+        "rep2":"Pour vous attaquer"
+    },
+    {
+        "question": "Le php est il un bon langage?",
+        "rep1":"Oui",
+        "rep2":"Non"
+    },
+    {
+        "question": "Avez vous signé le contrat de confidentialité?",
+        "rep1":"Oui",
+        "rep2":"Non"
+    },
+    {
+        "question": "Quelle est la réponse a la vie?",
+        "rep1":"42",
+        "rep2":"La vie est belle",
+        "rep2":"Je en sais pas!"
+    },
+    {
+        "question": "Utilisez vous linter",
+        "rep1":"Oui",
+        "rep2":"Non"
+    }
+]

@@ -6,12 +6,14 @@ Le projet a été réalisé a l'aide de vue.js et de PouchDB
 ```
 
 ### GetStarted
+Lien de l'application : https://emoovi.github.io/
 ```
 La page d'accueil est composé de deux formulaire :
     La page ou l'on rentre ses informations avant de passer le test
     La connexion en tant qu'administrateur
-    
-    Lien de l'application : https://emoovi.github.io/
+La page de question ou les question sont défini aleatoirement selon un JSON
+La page de résultat ou on recoit son score ainsi que la réponse attendu si vous avez mal répondu
+Une page administration ou l'administrateur voit le résultat de chacune des personne ayant répondu au questionnaire
 ```
 #### Identifiant :
 bapt

@@ -6,14 +6,15 @@
           <h1>{{this.$route.params["userPrenom"]+ " " + this.$route.params["userNom"]}}</h1>
           <h3>{{this.$route.params["userEntreprise"]}}</h3>
           <br>
-          <p class="score">{{this.score}} / {{this.nbrQuestion}}</p>
-          <div class="lesResultats"  v-for="element in reponse" :key="element">
+          <p class="score">{{this.BPscore}} / {{this.BPnbrQuestion}}</p>
+          <div class="lesResultats" v-for="element in BPreponse" :key="element">
             <hr>
             <p class="question">{{element['question']}}</p>
+<!--            definission de couleurs des réponses en fonction de leur résutat-->
             <div v-for="el in element['reponses']" :key="el">
-              <p v-if="element['attendu'] !== el" class="attendu">{{element['attendu']}}</p>
-              <p v-if="element['attendu'] === el" style="background-color: #6fc1a5; border:solid 1px black;">{{el}}</p>
-              <p v-else style="background-color: #d1274b;color: white; border:solid 1px black;">{{el}}</p>
+              <p v-if="element['attendu'] !== el" class="attendu" style="width:60%; margin-left:20%;border-radius: 5px; padding: 10px;">{{element['attendu']}}</p>
+              <p v-if="element['attendu'] === el" style="background-color: #6fc1a5; padding: 10px; border:solid 1px black; width:60%; margin-left:20%;border-radius: 5px;">{{el}}</p>
+              <p v-else style="background-color: #d1274b;color: white; border:solid 1px black; width:60%; padding: 10px; margin-left:20%; border-radius: 5px;">{{el}}</p>
             </div>
           </div>
         </div>
@@ -49,10 +50,15 @@ body{
   width:80%;
   margin-left:10% !important;
   margin-bottom: 15px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left:50px;
+  padding-right:50px;
 }
 
 .question{
-  font-weight: bold;
+  /*font-weight: bold;*/
+  font-size: 25px;
 }
 
 .score{
@@ -64,7 +70,7 @@ body{
 }
 
 hr{
-  border :solid 1px !important;
+  border :solid 1px lightgray!important;
 }
 
 .attendu{
@@ -87,39 +93,31 @@ h3{
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" language="javascript" src="./../assets/question.json"></script>
 <script>
-// Creating a new Vue instance and pass in an options object.
-
-import PouchDB from "pouchdb";
 
 export default {
-  name: "HelloWorld",
   data() {
     return {
-      reponse: [],
-      score: 0,
-      nbrQuestion: 0
+      BPreponse: [],
+      BPscore: 0,
+      BPnbrQuestion: 0
     };
   },
 
   created: function() {
-    var db = new PouchDB("app_questionnaire");
-    var incr = 0;
-    this.reponse = this.$route.params["Reponse"];
-    var score = this.reponse.length;
-    this.nbrQuestion = this.reponse.length;
-    // console.log(this.reponse)
-    for (var rep in this.reponse) {
-      // console.log(rep)
-      for (var r in this.reponse[rep]["reponses"]) {
-        // console.log(r)
-        if (this.reponse[rep]["reponses"][r] != this.reponse[rep]["attendu"]) {
+    // recuperation des variable passé dans la route
+    this.BPreponse = this.$route.params["Reponse"];
+    var score = this.BPreponse.length;
+    this.BPnbrQuestion = this.BPreponse.length;
+    // calcul du score
+    for (var rep in this.BPreponse) {
+      for (var r in this.BPreponse[rep]["reponses"]) {
+        if (this.BPreponse[rep]["reponses"][r] != this.BPreponse[rep]["attendu"]) {
           score = score - 1;
-          // console.log(score)
         }
       }
     }
     console.log(score);
-    this.score = score;
+    this.BPscore = score;
   }
 };
 </script>

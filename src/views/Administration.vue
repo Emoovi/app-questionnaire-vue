@@ -7,7 +7,10 @@
             <h1>Administration</h1>
             <h3>Ici vous voyez le score des personnes qui ont passé le test</h3>
           </div>
-        <div style="background-color: white; margin:10px; border-radius:5px;"  v-for="element in result" :key="element">
+          <router-link to="/">
+            <a class="btnRetour" href='#'>Retour au menu</a>
+          </router-link>
+        <div style="background-color: white; margin:10px; border-radius:5px; margin-top: 25px;" v-for="element in BPresult" :key="element">
           <p class="leNom">{{element['UserPrenom']}} {{element['UserNom']}} </p>
           <p class="lentreprise">{{element['UserEntreprise']}}</p>
           <p class="leScore">{{element['Score']}}</p>
@@ -41,7 +44,16 @@
 
 .titre{
   margin : 20px;
+  margin-top: 30px;
   font-weight: bold !important;
+  background-color: #fabc60;
+  border-radius:10px;
+  padding:15px;
+  margin-bottom: 20px !important;
+}
+a{
+  background-color: #fff6da !important;
+  margin-bottom: 30px !important;
 }
 
 </style>
@@ -50,12 +62,11 @@
 import PouchDB from 'pouchdb'
 
 export default {
-  name: 'HelloWorld',
   data () {
     return {
-      resultPromise: [],
-      result: [],
-      nbrQuestion: 0
+      BPresultPromise: [],
+      BPresult: [],
+      BPnbrQuestion: 0
     }
   },
 
@@ -65,13 +76,13 @@ export default {
 
   methods: {
     async recupDB () {
-      var context = this
-      var db = new PouchDB('app_questionnaire')
-      db.allDocs({}).then(function (resul) {
-        for (let i = 0; i < resul.rows.length; i++) {
-          db.get(resul.rows[i].id.toString()).then(function (doc) {
+      var BPcontext = this
+      var BPdb = new PouchDB('app_questionnaire')
+      BPdb.allDocs({}).then(function (BPresul) {
+        for (let i = 0; i < BPresul.rows.length; i++) {
+          BPdb.get(BPresul.rows[i].id.toString()).then(function (doc) {
             if (doc.hasOwnProperty('Reponse')) {
-              context.result.push(doc)
+              BPcontext.BPresult.push(doc)
             }
           })
         }

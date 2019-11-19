@@ -24,7 +24,6 @@
 
 .inputConn {
   text-align: center !important;
-  max-width: auto !important;
   margin-left: auto !important;
   margin-right: auto !important;
   margin-bottom: 15px;
@@ -43,7 +42,6 @@ body{
 <script>
 import PouchDB from 'pouchdb'
 export default {
-  name: 'HelloWorld',
   data () {
     return {
       identifiant: '',
@@ -52,23 +50,19 @@ export default {
   },
 
   methods: {
+    // fonction de vezrrification du combot user/mdp
     verrifUser: function () {
       var db = new PouchDB('app_questionnaire')
       const usn = this.identifiant
       const pass = this.pass
       var context = this
+      // verrification dans la bdd
       db.get('2').then(function (doc) {
-        // console.log(doc)
-        // console.log(usn)
-        // console.log(doc.username)
-        // console.log(pass)
-        // console.log(doc.password)
         if (usn === doc.username && pass === doc.password) {
           context.$router.push({ name: 'administration' })
         }
       })
       db.replicate.to('http://127.0.0.1:3306/useradmin')
-      // this.$router.push({ name: "questionnaire", params: {userNom: this.nom, userPrenom: this.prenom, userEntreprise: this.entreprise}});
     }
   }
 }

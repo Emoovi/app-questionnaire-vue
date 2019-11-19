@@ -16,7 +16,7 @@
 }
 
 .btn{
-  padding : 30px,10px !important;
+  padding : 30px, 10px !important;
   background-color: white  !important;
   margin : 10px !important;
   color: #113a5d !important;
@@ -30,13 +30,5 @@
 body{
   background-color: #4b8e8d !important;
   text-align: center !important;
-}
-
-.logo{
-  width:100% !important;
-}
-
-.containerimg{
-  margin-top : 10% !important;
 }
 </style>

@@ -17,14 +17,14 @@
         "question": "Avez vous un casier judiciaire?",
         "rep1":"Oui",
         "rep2":"Non",
-        "rep3":"Je en sais pas",
+        "rep3":"Je ne sais pas",
         "attendu": "Non"
     },
     {
         "question": "Etes vous un terroriste?",
         "rep1":"Oui",
         "rep2":"Non",
-        "rep3":"Je en sais pas",
+        "rep3":"Je ne sais pas",
         "attendu": "Non"
     },
     {
@@ -52,28 +52,28 @@
         "question": "Le php est il un bon langage?",
         "rep1":"Oui",
         "rep2":"Non",
-        "rep3":"Je en sais pas",
+        "rep3":"Je ne sais pas",
         "attendu": "Non"
     },
     {
         "question": "Avez vous signé le contrat de confidentialité?",
         "rep1":"Oui",
         "rep2":"Non",
-        "rep3":"Je en sais pas",
+        "rep3":"Je ne sais pas",
         "attendu": "Oui"
     },
     {
         "question": "Quelle est la réponse a la vie?",
         "rep1":"42",
         "rep2":"La vie est belle",
-        "rep3":"Je en sais pas!",
+        "rep3":"Je ne sais pas!",
         "attendu": ["42", "La vie est belle"]
     },
     {
         "question": "Utilisez vous linter",
         "rep1":"Oui",
         "rep2":"Non",
-        "rep3":"Je en sais pas"
+        "rep3":"Je ne sais pas"
         ,
         "attendu": "Non"
     }

@@ -9,9 +9,9 @@
       <div class="col-12 containerimg">
         <img id="logo" class="logo" src="./../assets/logo.png" />
       </div>
-      <b-form-input class="inputConn col-7" v-model="nom" placeholder="Nom"></b-form-input>
-      <b-form-input class="inputConn col-7" v-model="prenom" type="text" placeholder="Prenom"></b-form-input>
-      <b-form-input class="inputConn col-7" v-model="entreprise" type="text" placeholder="Entreprise"></b-form-input>
+      <b-form-input class="inputConn col-7" v-model="BPnom" placeholder="Nom"></b-form-input>
+      <b-form-input class="inputConn col-7" v-model="BPprenom" type="text" placeholder="Prenom"></b-form-input>
+      <b-form-input class="inputConn col-7" v-model="BPentreprise" type="text" placeholder="Entreprise"></b-form-input>
     </div>
     <router-link to="/questionnaire">
       <b-button class="btnConn" @click="verrifUser" squared variant="outline-secondary">Lancer le
@@ -28,31 +28,32 @@
   import PouchDB from "pouchdb";
 
   export default {
-    name: 'HelloWorld',
     data() {
       return {
-        nom:'',
-        prenom:'',
-        entreprise: ''
+        BPnom:'',
+        BPprenom:'',
+        BPentreprise: ''
       }
     },
 
     methods: {
-
+// Creation et initialisation de la bdd pour la personne qui va remplir le questionnaire
       verrifUser: function () {
-        var db = new PouchDB('app_questionnaire')
-        db.put({
+        var BPdb = new PouchDB('app_questionnaire')
+        BPdb.put({
           _id: "3",
-          Surname: this.nom,
-          Name: this.prenom,
-          Company: this.entreprise
+          Surname: this.BPnom,
+          Name: this.BPprenom,
+          Company: this.BPentreprise
         })
-        db.get("3").then(function (doc) {
+        // verrification de l'insertion'
+        BPdb.get("3").then(function (doc) {
         }).catch(function (err) {
         })
-
-        db.replicate.to('http://127.0.0.1:3306/useradmin')
-        this.$router.push({ name: "questionnaire", params: {userNom: this.nom,userPrenom: this.prenom,userEntreprise: this.entreprise}});
+        // replication dans la base de donnée en ligne
+        BPdb.replicate.to('http://127.0.0.1:3306/useradmin')
+        // routeur permetant de naviguer a la page questionnaire avec les valeurs de l'utilisateur en parametre
+        this.$router.push({ name: "questionnaire", params: {userNom: this.BPnom,userPrenom: this.BPprenom,userEntreprise: this.BPentreprise}});
       },
     }
   }
@@ -60,20 +61,20 @@
 </script>
 
 <style>
-  .container {
-    /* display: flex;
-    align-items: center;
-    flex-wrap: wrap; */
-    text-align: center !important;
+
+  .logo{
+    width:50% !important;
   }
 
-  .logoDisplayNone {
-    display: none !important;
+  .containerimg{
+    margin-top : 10% !important;
+  }
+  .container {
+    text-align: center !important;
   }
 
   .inputConn {
     text-align: center !important;
-    max-width: auto !important;
     margin-left: auto !important;
     margin-right: auto !important;
     margin-bottom: 15px;
@@ -84,7 +85,11 @@
     margin-top: 30px !important;
     width: 40% !important;
     font-size: 18px !important;
-
+  }
+  @media only screen and (max-width: 600px) {
+    .btnConn {
+      width: 90% !important;
+    }
   }
 
   .centrer {

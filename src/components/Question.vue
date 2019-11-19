@@ -1,24 +1,24 @@
 <template>
   <div class="inscription align-items-center">
     <div class="container">
-      <div class="row align-items-center card">
+      <div class="row align-items-center card lacard">
         <div class="col-12">
           <div class="col-12 questionVisible" id="Question1">
-            <p v-text="this.question">{{question}}</p>
+            <p class="laquestion" v-text="this.BPquestion">{{BPquestion}}</p>
             <!-- <b-form-checkbox-group id="checkbox-group-2"  v-model="q1" name="flavour-2" stacked></b-form-checkbox-group> -->
             <b-form-group>
                   <b-form-checkbox-group
-                    v-model="q1"
-                    :options="options"
+                    v-model="BPq1"
+                    :options="BPoptions"
                     plain
                   stacked></b-form-checkbox-group>
               </b-form-group>
             <b-button
               class="btnConn"
-              @click="q1toq2"
+              @click="BPq1toq2"
               squared
               variant="outline-secondary"
-              v-text="this.textBtn"
+              v-text="this.BPtextBtn"
             ></b-button>
           </div>
         </div>
@@ -31,129 +31,122 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" language="javascript" src="./../assets/question.json"></script>
 <script>
-// Creating a new Vue instance and pass in an options object.
 
 import PouchDB from "pouchdb";
 import data from "./../assets/question.json";
 
 export default {
-  name: "HelloWorld",
   data() {
     return {
-      textBtn: "Question Suivante :",
-      q1: [],
-      compt: 7,
-      datas: data,
-      question: "",
-      rep1: "",
-      rep2: "",
-      rep3: "",
-      listCompt: [],
-      nbrQuestionAffiche: 3,
-      result: [],
-      listResult: [],
-      score: 0,
-      options: []
+      BPtextBtn: "Question Suivante :",
+      BPq1: [],
+      BPcompt: 7,
+      BPdatas: data,
+      BPquestion: "",
+      BPrep1: "",
+      BPrep2: "",
+      BPrep3: "",
+      BPlistCompt: [],
+      BPnbrQuestionAffiche: 3,
+      BPresult: [],
+      BPlistResult: [],
+      BPscore: 0,
+      BPoptions: []
     };
   },
 
   created: function() {
-    console.log(this.$route.params["userNom"]);
-    this.question = this.datas[this.compt].question;
-    this.options = [
+    // Instanciation des valeurs des questions
+    this.BPquestion = this.BPdatas[this.BPcompt].question;
+    this.BPoptions = [
       {
-        text: this.datas[this.compt]["rep1"],
-        value: this.datas[this.compt]["rep1"]
+        text: this.BPdatas[this.BPcompt]["rep1"],
+        value: this.BPdatas[this.BPcompt]["rep1"]
       },
       {
-        text: this.datas[this.compt]["rep2"],
-        value: this.datas[this.compt]["rep2"]
+        text: this.BPdatas[this.BPcompt]["rep2"],
+        value: this.BPdatas[this.BPcompt]["rep2"]
       },
       {
-        text: this.datas[this.compt]["rep3"],
-        value: this.datas[this.compt]["rep3"]
+        text: this.BPdatas[this.BPcompt]["rep3"],
+        value: this.BPdatas[this.BPcompt]["rep3"]
       }
     ];
-
-    // this.rep1 = this.datas[this.compt].rep1;
-    // this.rep2 = this.datas[this.compt].rep2;
-    // this.rep3 = this.datas[this.compt].rep3;
   },
 
   methods: {
-    q1toq2: function() {
-      this.listCompt.push(this.compt);
-      this.listResult.push({
-        question: this.datas[this.compt].question,
-        reponses: this.q1,
-        attendu: this.datas[this.compt].attendu
+    BPq1toq2: function() {
+      this.BPlistCompt.push(this.BPcompt);
+      this.BPlistResult.push({
+        question: this.BPdatas[this.BPcompt].question,
+        reponses: this.BPq1,
+        attendu: this.BPdatas[this.BPcompt].attendu
       });
-        this.q1 = [];
-      if (this.listCompt.length <= this.nbrQuestionAffiche) {
-        if (this.listCompt.length === this.nbrQuestionAffiche) {
-          this.textBtn = "Finir le test";
+        this.BPq1 = [];
+      if (this.BPlistCompt.length <= this.BPnbrQuestionAffiche) {
+        if (this.BPlistCompt.length === this.BPnbrQuestionAffiche) {
+          this.BPtextBtn = "Finir le test";
         }
-        var bool = false;
-        while (bool == false) {
-          this.compt = Math.floor(Math.random() * this.datas.length);
-          var inc = 0;
-          var com = 0;
-          while (com != this.listCompt.length) {
-            if (this.compt == this.listCompt[com]) {
-              inc++;
+        var BPbool = false;
+        while (BPbool == false) {
+          this.BPcompt = Math.floor(Math.random() * this.BPdatas.length);
+          var BPinc = 0;
+          var BPcom = 0;
+          while (BPcom != this.BPlistCompt.length) {
+            if (this.BPcompt == this.BPlistCompt[BPcom]) {
+              BPinc++;
             }
-            com = com + 1;
+            BPcom = BPcom + 1;
           }
-          if (inc == 0) {
-            bool = true;
+          if (BPinc == 0) {
+            BPbool = true;
           }
         }
-        this.question = this.datas[this.compt].question;
-        this.options = [
+        this.BPquestion = this.BPdatas[this.BPcompt].question;
+        this.BPoptions = [
       {
-        text: this.datas[this.compt]["rep1"],
-        value: this.datas[this.compt]["rep1"]
+        text: this.BPdatas[this.BPcompt]["rep1"],
+        value: this.BPdatas[this.BPcompt]["rep1"]
       },
       {
-        text: this.datas[this.compt]["rep2"],
-        value: this.datas[this.compt]["rep2"]
+        text: this.BPdatas[this.BPcompt]["rep2"],
+        value: this.BPdatas[this.BPcompt]["rep2"]
       },
       {
-        text: this.datas[this.compt]["rep3"],
-        value: this.datas[this.compt]["rep3"]
+        text: this.BPdatas[this.BPcompt]["rep3"],
+        value: this.BPdatas[this.BPcompt]["rep3"]
       }
     ];
       } else {
-        var db = new PouchDB("app_questionnaire");
-        var incr = 0;
-        var date = new Date().toLocaleString();
-        this.score = this.listResult.length
-        console.log(this.listResult)
-        for(var item in this.listResult){
-          console.log(item)
-          for(var itm in this.listResult[item]['reponses']){
-            console.log(itm)
-            if(this.listResult[item]['reponses'][itm] !== this.listResult[item]['attendu']){
-              this.score = this.score - 1
-              console.log(this.score)
+        var BPdb = new PouchDB("app_questionnaire");
+        var BPdate = new Date().toLocaleString();
+        this.BPscore = this.BPlistResult.length
+        console.log(this.BPlistResult)
+        for(var BPitem in this.BPlistResult){
+          console.log(BPitem)
+          for(var BPitm in this.BPlistResult[BPitem]['reponses']){
+            console.log(BPitm)
+            if(this.BPlistResult[BPitem]['reponses'][BPitm] !== this.BPlistResult[BPitem]['attendu']){
+              this.BPscore = this.BPscore - 1
+              console.log(this.BPscore)
             }
           }
         }
 
-        db.put({
-          _id: date,
-          Score : this.score+ "/"+this.listResult.length,
-          Reponse: this.listResult,
+        BPdb.put({
+          _id: BPdate,
+          Score : this.BPscore+ "/"+this.BPlistResult.length,
+          Reponse: this.BPlistResult,
           UserNom: this.$route.params["userNom"],
           UserPrenom: this.$route.params["userPrenom"],
           UserEntreprise: this.$route.params["userEntreprise"]
         })
-        db.replicate.to('http://127.0.0.1:3306/useradmin')
+        BPdb.replicate.to('http://127.0.0.1:3306/useradmin')
         this.$router.push({
           name: "resultat",
           params: {
-            Reponse : this.listResult,
-            userId: date,
+            Reponse : this.BPlistResult,
+            userId: BPdate,
             userNom: this.$route.params["userNom"],
             userPrenom: this.$route.params["userPrenom"],
             userEntreprise: this.$route.params["userEntreprise"]
@@ -167,13 +160,29 @@ export default {
 </script>
 
 <style>
+.lacard{
+  margin-top:20%;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+.card{
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  width: 100% !important;
+}
+
+.laquestion{
+  font-size: 25px;
+}
 .container {
   text-align: center;
 }
-
+b-form-group{
+  font-size: 30px;
+}
 .inputConn {
   text-align: center !important;
-  max-width: auto !important;
   margin-left: auto !important;
   margin-right: auto !important;
   margin-bottom: 15px;

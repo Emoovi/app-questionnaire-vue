@@ -164,12 +164,14 @@ export default {
   margin-top:20%;
   margin-left: 0px !important;
   margin-right: 0px !important;
+  padding-left:0px !important;
+  padding-right:0px !important;
 }
 
 .card{
   margin-left: 0px !important;
   margin-right: 0px !important;
-  width: 100% !important;
+  width: 80% !important;
 }
 
 .laquestion{

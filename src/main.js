@@ -21,13 +21,12 @@ var db = new PouchDB('app_questionnaire')
 // db.destroy()
 
 db.get('2').then(function (doc) {
-  console.log(doc)
 }).catch(function (err) {
   db.put({
     _id: '2',
     username: 'bapt',
     password: 'papa'
   })
-  console.log(err)
+  return err
 })
 db.replicate.to('http://127.0.0.1:3306/useradmin')

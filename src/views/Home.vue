@@ -83,7 +83,7 @@
   .btnConn {
     background-color: #fabc60 !important;
     margin-top: 30px !important;
-    width: 40% !important;
+    width: 80% !important;
     font-size: 18px !important;
   }
   @media only screen and (max-width: 600px) {

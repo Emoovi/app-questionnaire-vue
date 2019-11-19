@@ -56,7 +56,7 @@ Récupération des question/reponse stocké dans PouchDB
 GitIo
 ```
 
-### 18/11:
+### 19/11:
 ```
 Finition CSS
 Mise en page de l'administration

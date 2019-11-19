@@ -1,24 +1,61 @@
 # app-questionnaire-vue
 
-## Project setup
+## Information sur le projet
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+Le projet a été réalisé a l'aide de vue.js et de PouchDB
 ```
 
-### Compiles and minifies for production
+### GetStarted
 ```
-npm run build
+La page d'accueil est composé de deux formulaire :
+    La page ou l'on rentre ses informations avant de passer le test
+    La connexion en tant qu'administrateur
+```
+#### Identifiant :
+bapt
+#### Password :
+papa
+
+## Objectif :
+
+### 22/10:
+```
+Réalisation du JSON
+Faire les formulaires de connexionn et de test
+CSS
 ```
 
-### Lints and fixes files
+### 28/10:
 ```
-npm run lint
+Récupération des infos du JSON
+Connction a PouchDB
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 30/10:
+```
+Réalisation de la page de question
+Choix de question aléatoire
+CSS page de question
+```
+
+### 17/11:
+```
+Page de résultat
+Envoie des infos dans pouchDB
+CSS page Résultat
+```
+
+### 18/11:
+```
+Page administration
+Récupération des question/reponse stocké dans PouchDB
+GitIo
+```
+
+### 18/11:
+```
+Finition CSS
+Mise en page de l'administration
+push final
+rédaction de README
+```

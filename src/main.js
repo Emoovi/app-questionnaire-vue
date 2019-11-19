@@ -17,9 +17,10 @@ new Vue({
 }).$mount('#app')
 
 var db = new PouchDB('app_questionnaire')
+// db.destroy()
 db.put({
   _id: '2',
-  username: 'Bapt',
+  username: 'bapt',
   password: 'papa'
 })
 db.get('2').then(function (doc) {

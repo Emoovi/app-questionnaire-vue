@@ -4,66 +4,22 @@
       <div class="row align-items-center card">
         <div class="col-12">
           <div class="col-12 questionVisible" id="Question1">
-            <p>Quel est votre age?</p>
-            <b-form-radio v-model="q1" name="some-radios" value="A">Moins de</b-form-radio>
-            <b-form-radio v-model="q1" name="some-radios" value="B">Entre 1 et 3 ans</b-form-radio>
-            <b-form-radio v-model="q1" name="some-radios" value="C">Superieur à 3 ans</b-form-radio>
+            <p v-text="this.question">{{question}}</p>
+            <!-- <b-form-checkbox-group id="checkbox-group-2"  v-model="q1" name="flavour-2" stacked></b-form-checkbox-group> -->
+            <b-form-group>
+                  <b-form-checkbox-group
+                    v-model="q1"
+                    :options="options"
+                    plain
+                  stacked></b-form-checkbox-group>
+              </b-form-group>
             <b-button
               class="btnConn"
               @click="q1toq2"
               squared
               variant="outline-secondary"
-            >Question suivante</b-button>
-          </div>
-          <div class="col-12 questionNonVisible" id="Question2">
-            <p>Depuis quand etes vous dans votre entreprise?</p>
-            <b-form-radio v-model="q2" name="some-radios" value="A">Inferieur à 1 ans</b-form-radio>
-            <b-form-radio v-model="q2" name="some-radios" value="B">Entre 1 et 3 ans</b-form-radio>
-            <b-form-radio v-model="q2" name="some-radios" value="C">Superieur à 3 ans</b-form-radio>
-            <b-button
-              class="btnConn"
-              @click="q2toq3"
-              squared
-              variant="outline-secondary"
-            >Question suivante</b-button>
-          </div>
-          <div class="col-12 questionNonVisible" id="Question3">
-            <p>Avez vous un casier judiciaire?</p>
-            <b-form-radio v-model="q3" name="some-radios" value="A">Oui</b-form-radio>
-            <b-form-radio v-model="q3" name="some-radios" value="B">Non</b-form-radio>
-            <b-button
-              class="btnConn"
-              @click="q3toq4"
-              squared
-              variant="outline-secondary"
-            >Question suivante</b-button>
-          </div>
-          <div class="col-12 questionNonVisible" id="Question4">
-            <p>Etes vous un terroriste?</p>
-            <b-form-radio v-model="q4" name="some-radios" value="A">Oui</b-form-radio>
-            <b-form-radio v-model="q4" name="some-radios" value="B">Non</b-form-radio>
-            <b-button
-              class="btnConn"
-              @click="q4toq5"
-              squared
-              variant="outline-secondary"
-            >Question suivante</b-button>
-          </div>
-          <div class="col-12 questionNonVisible" id="Question5">
-            <p>Mangez vous des pizzas à l'ananas?</p>
-            <b-form-radio v-model="q5" name="some-radios" value="A">Oui</b-form-radio>
-            <b-form-radio
-              v-model="q5"
-              name="some-radios"
-              value="B"
-            >Oui mais je l'assume pas donc non</b-form-radio>
-            <b-form-radio v-model="q5" name="some-radios" value="C">T'es fou c'est degueulasse</b-form-radio>
-            <b-button
-              class="btnConn"
-              @click="saveReponses"
-              squared
-              variant="outline-secondary"
-            >Finir le test</b-button>
+              v-text="this.textBtn"
+            ></b-button>
           </div>
         </div>
       </div>
@@ -75,76 +31,144 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" language="javascript" src="./../assets/question.json"></script>
 <script>
-  // Creating a new Vue instance and pass in an options object.
+// Creating a new Vue instance and pass in an options object.
 
-  import PouchDB from "pouchdb";
-  import data from "./../assets/question.json"
+import PouchDB from "pouchdb";
+import data from "./../assets/question.json";
 
-  export default {
-    name: 'HelloWorld',
-    data() {
-      return {
-        qu1:"",
-        qu2:"",
-        qu3:"",
-        qu4:"",
-        qu5:""
+export default {
+  name: "HelloWorld",
+  data() {
+    return {
+      textBtn: "Question Suivante :",
+      q1: [],
+      compt: 7,
+      datas: data,
+      question: "",
+      rep1: "",
+      rep2: "",
+      rep3: "",
+      listCompt: [],
+      nbrQuestionAffiche: 3,
+      result: [],
+      listResult: [],
+      score: 0,
+      options: []
+    };
+  },
+
+  created: function() {
+    console.log(this.$route.params["userNom"]);
+    this.question = this.datas[this.compt].question;
+    this.options = [
+      {
+        text: this.datas[this.compt]["rep1"],
+        value: this.datas[this.compt]["rep1"]
+      },
+      {
+        text: this.datas[this.compt]["rep2"],
+        value: this.datas[this.compt]["rep2"]
+      },
+      {
+        text: this.datas[this.compt]["rep3"],
+        value: this.datas[this.compt]["rep3"]
+      }
+    ];
+
+    // this.rep1 = this.datas[this.compt].rep1;
+    // this.rep2 = this.datas[this.compt].rep2;
+    // this.rep3 = this.datas[this.compt].rep3;
+  },
+
+  methods: {
+    q1toq2: function() {
+      this.listCompt.push(this.compt);
+      this.listResult.push({
+        question: this.datas[this.compt].question,
+        reponses: this.q1,
+        attendu: this.datas[this.compt].attendu
+      });
+        this.q1 = [];
+      if (this.listCompt.length <= this.nbrQuestionAffiche) {
+        if (this.listCompt.length === this.nbrQuestionAffiche) {
+          this.textBtn = "Finir le test";
+        }
+        var bool = false;
+        while (bool == false) {
+          this.compt = Math.floor(Math.random() * this.datas.length);
+          var inc = 0;
+          var com = 0;
+          while (com != this.listCompt.length) {
+            if (this.compt == this.listCompt[com]) {
+              inc++;
+            }
+            com = com + 1;
+          }
+          if (inc == 0) {
+            bool = true;
+          }
+        }
+        this.question = this.datas[this.compt].question;
+        this.options = [
+      {
+        text: this.datas[this.compt]["rep1"],
+        value: this.datas[this.compt]["rep1"]
+      },
+      {
+        text: this.datas[this.compt]["rep2"],
+        value: this.datas[this.compt]["rep2"]
+      },
+      {
+        text: this.datas[this.compt]["rep3"],
+        value: this.datas[this.compt]["rep3"]
+      }
+    ];
+      } else {
+        var db = new PouchDB("app_questionnaire");
+        var incr = 0;
+        var date = new Date().toLocaleString();
+        this.score = this.listResult.length
+        console.log(this.listResult)
+        for(var item in this.listResult){
+          console.log(item)
+          for(var itm in this.listResult[item]['reponses']){
+            console.log(itm)
+            if(this.listResult[item]['reponses'][itm] !== this.listResult[item]['attendu']){
+              this.score = this.score - 1
+              console.log(this.score)
+            }
+          }
+        }
+
+        db.put({
+          _id: date,
+          Score : this.score,
+          Reponse: this.listResult,
+          UserNom: this.$route.params["userNom"],
+          UserPrenom: this.$route.params["userPrenom"],
+          UserEntreprise: this.$route.params["userEntreprise"]
+        })
+        db.replicate.to('http://127.0.0.1:3306/useradmin')
+        this.$router.push({
+          name: "resultat",
+          params: {
+            Reponse : this.listResult,
+            userId: date,
+            userNom: this.$route.params["userNom"],
+            userPrenom: this.$route.params["userPrenom"],
+            userEntreprise: this.$route.params["userEntreprise"]
+          }
+        });
       }
     },
-
-    created: function(){
-        console.log("salut");
-        console.log(data);
-
-},
-
-    methods: {
-      q1toq2: function () {
-        var element = document.getElementById("Question1");
-        element.classList.remove("questionVisible");
-        element.classList.add("questionNonVisible");
-        var affiche = document.getElementById("Question2")
-        affiche.classList.remove("questionNonVisible");
-        elafficheement.classList.add("questionVisible");
-      },
-      q2toq3: function () {
-        var element = document.getElementById("Question2");
-        element.classList.remove("questionVisible");
-        element.classList.add("questionNonVisible");
-        var affiche = document.getElementById("Question3")
-        affiche.classList.remove("questionNonVisible");
-        elafficheement.classList.add("questionVisible");
-      },
-      q3toq4: function () {
-        var element = document.getElementById("Question3");
-        element.classList.remove("questionVisible");
-        element.classList.add("questionNonVisible");
-        var affiche = document.getElementById("Question4")
-        affiche.classList.remove("questionNonVisible");
-        elafficheement.classList.add("questionVisible");
-      },
-      q4toq5: function () {
-        var element = document.getElementById("Question4");
-        element.classList.remove("questionVisible");
-        element.classList.add("questionNonVisible");
-        var affiche = document.getElementById("Question5")
-        affiche.classList.remove("questionNonVisible");
-        elafficheement.classList.add("questionVisible");
-      },
-      saveReponses: function(){
-      }
-    }
+    saveReponses: function() {}
   }
-
+};
 </script>
 
 <style>
 .container {
   text-align: center;
-}
-
-.h1 {
-  z-index: 1000;
 }
 
 .inputConn {
@@ -153,13 +177,5 @@
   margin-left: auto !important;
   margin-right: auto !important;
   margin-bottom: 15px;
-}
-
-.questionVisible {
-  display: block !important;
-}
-
-.questionNonVisible {
-  display: none !important;
 }
 </style>

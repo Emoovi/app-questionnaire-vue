@@ -31,13 +31,14 @@
     name: 'HelloWorld',
     data() {
       return {
-        nom: "",
-        prenom: "",
-        entreprise: ""
+        nom:'',
+        prenom:'',
+        entreprise: ''
       }
     },
 
     methods: {
+
       verrifUser: function () {
         var db = new PouchDB('app_questionnaire')
         db.put({
@@ -47,13 +48,11 @@
           Company: this.entreprise
         })
         db.get("3").then(function (doc) {
-          console.log(doc)
         }).catch(function (err) {
-          console.log(err)
         })
 
         db.replicate.to('http://127.0.0.1:3306/useradmin')
-        console.log("salut")
+        this.$router.push({ name: "questionnaire", params: {userNom: this.nom,userPrenom: this.prenom,userEntreprise: this.entreprise}});
       },
     }
   }

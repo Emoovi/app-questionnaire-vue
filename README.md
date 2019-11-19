@@ -16,9 +16,10 @@ La page de résultat ou on recoit son score ainsi que la réponse attendu si vou
 Une page administration ou l'administrateur voit le résultat de chacune des personne ayant répondu au questionnaire
 ```
 #### Pour la connexion administrateur
+``
 Identifiant : bapt
 Password : papa
-
+``
 ## Objectif :
 
 ### 22/10:
